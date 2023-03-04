@@ -51,7 +51,13 @@ echo "================================="
 echo "=       Run test program        ="
 echo "================================="
 
-../build.linux/nachos -e fileIO_test2 2>stderr.out
+rm file1.test
+
+echo "[stderr from fileIO_test1]" 1>stderr.out
+../build.linux/nachos -e fileIO_test1 2>>stderr.out
+
+echo "[stderr from fileIO_test2]" 1>>stderr.out
+../build.linux/nachos -e fileIO_test2 2>>stderr.out
 
 echo "================================="
 echo "=       Print stderr.out        ="

@@ -1,2 +1,6 @@
+[stderr from fileIO_test1]
+[OpenAFile()] nOpenFile: 0
+[OpenAFile()] tableIdx: 0
+[stderr from fileIO_test2]
 [OpenAFile()] nOpenFile: 0
 [OpenAFile()] tableIdx: 0
