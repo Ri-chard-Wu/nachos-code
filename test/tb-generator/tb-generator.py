@@ -41,49 +41,77 @@ f"""
 
 freelist = [i for i in range(20)]
 opentable = [0 for i in range(20)]
+tableIdx = -1
 
-for i in range(100):
+for i in range(120):
 
     op = random.randint(0, 1)
-    fileNum = random.randint(0, 24)  
-    fid = random.randint(0, 19)  
+    fileNum = random.randint(-10, 40)  
+    fid = random.randint(-10, 30)  
    
     if(op == 0): 
-        tableIdx = -1
+        
+
         if(len(freelist)):
-            tableIdx = freelist.pop(0)
-            opentable[tableIdx] = 1
-            prog +=\
+
+            if(fileNum < 0 or fileNum >= 25):
+                prog +=\
 f"""
     fid = Open(\"file{fileNum}.txt\");
-    if(fid != {tableIdx}) MSG("fid not correct");
+    if(fid != -1) MSG("[{i}] fid not correct 1");
+"""            
+            else:       
+                tableIdx = freelist.pop(0)
+                opentable[tableIdx] = 1
+                prog +=\
+f"""
+    fid = Open(\"file{fileNum}.txt\");
+    if(fid != {tableIdx}) MSG("[{i}] fid not correct 2");
 """     
         else:
             prog +=\
 f"""
     fid = Open(\"file{fileNum}.txt\");
-    if(fid != -1) MSG("fid not correct");
+    if(fid != -1) MSG("[{i}] fid not correct 3");
 """ 
 
+
+
+
+
+
+
     else: 
-        if(opentable[fid]):
-            opentable[fid] = 0
-            freelist.append(fid)
-            prog +=\
+        if(fid < 0 or fid >=20):
+                prog +=\
 f"""
     success = Close({fid});
-    if (success != 1) MSG("close not correct");
-"""
+    if (success == 1) MSG("[{i}] close not correct 1");
+"""            
         else:
-            prog +=\
+            if(opentable[fid]):
+                opentable[fid] = 0
+                freelist.append(fid)
+                prog +=\
 f"""
     success = Close({fid});
-    if (success == 1) MSG("close not correct");
+    if (success != 1) MSG("[{i}] close not correct 2");
+"""
+            else:
+                prog +=\
+f"""
+    success = Close({fid});
+    if (success == 1) MSG("[{i}] close not correct 3");
 """            
 
 
-## close 
 
+
+
+
+
+
+## close 
 prog +=\
 """
     for(i = 0; i < 20; i++){
