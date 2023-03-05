@@ -1,32 +1,44 @@
 #include "syscall.h"
 
 
+
+
+
+
+
 int main(void)
 {
+	
 	char test[] = "abcdefghijklmnopqrstuvwxyz";
 	int pk_sz = 2;
 	int n_pk = 13;	
-	int success= Create("file1.test");
+	int failed = 0;
 	OpenFileId fid;
 	int i;
-	if (success != 1) MSG("Failed on creating file");
+
+
+	int success= Create("file1.test");
+	if (success != 1) failed = 1;
 	
 	fid = Open("file1.test");
-	
-	// MSG("fid: ");
-	// PrintInt(fid);
-
-	if (fid < 0) MSG("Failed on opening file");
+	if (fid < 0) failed = 1;
 
 
 	for (i = 0; i < 26; i += pk_sz) {
 		int count = Write(test + i, pk_sz, fid);
-		if (count != pk_sz) MSG("Failed on writing file");
+		if (count != pk_sz) failed = 1;
 	}
        
 	success = Close(fid);
-	if (success != 1) MSG("Failed on closing file");
-	MSG("Success on creating file1.test");
+	if (success != 1) failed = 1;
+
+	if(failed){
+		MSG("test  1: failed");
+	}else{
+		MSG("test  1: passed");
+	}
+
+	
 	Halt();
 }
 

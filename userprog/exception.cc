@@ -86,19 +86,30 @@ void ExceptionHandler(ExceptionType which) {
           ASSERTNOTREACHED();
           break;
 
+        // case SC_MSG:
+        //   DEBUG(dbgSys, "Message received.\n");
+        //   val = kernel->machine->ReadRegister(4);
+        //   {
+        //     char *msg = &(kernel->machine->mainMemory[val]);
+        //     cout << msg << endl;
+        //   }
+        //   SysHalt();
+        //   ASSERTNOTREACHED();
+        //   break;
+
         case SC_MSG:
-          DEBUG(dbgSys, "Message received.\n");
           val = kernel->machine->ReadRegister(4);
           {
             char *msg = &(kernel->machine->mainMemory[val]);
             cout << msg << endl;
           }
-          SysHalt();
+          kernel->machine->WriteRegister(PrevPCReg, kernel->machine->ReadRegister(PCReg));
+          kernel->machine->WriteRegister(PCReg, kernel->machine->ReadRegister(PCReg) + 4);
+          kernel->machine->WriteRegister(NextPCReg, kernel->machine->ReadRegister(PCReg) + 4);
+          return;          
+
           ASSERTNOTREACHED();
           break;
-          
-
-
 
         case SC_Create:
           val = kernel->machine->ReadRegister(4);
@@ -201,13 +212,6 @@ void ExceptionHandler(ExceptionType which) {
           
           ASSERTNOTREACHED();
           break;
-
-
-
-
-
-
-
 
 
 

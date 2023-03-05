@@ -85,12 +85,6 @@ class FileSystem {
   }
 
 
-// readyList->RemoveFront()
-// readyList->Append(thread);
-// if (readyList->IsEmpty())
-
-
-
   // The OpenAFile function is used for kernel open system call
   /* TODO (Open)
     1) If the file is not exist or OpenFileTable is full, return -1
@@ -102,14 +96,13 @@ class FileSystem {
 
       if(nOpenFile >= 20) return -1;
       
-      nOpenFile++;
       OpenFile *openfile = Open(name);
       if(!openfile) return -1;
-      
       
       int tableIdx = freelist->RemoveFront();
       cerr << "[OpenAFile()] tableIdx: " << tableIdx << "\n"; 
       OpenFileTable[tableIdx] = openfile;
+      nOpenFile++;
 
       return tableIdx;
   }
