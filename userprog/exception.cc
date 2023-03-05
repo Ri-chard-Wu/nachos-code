@@ -136,7 +136,6 @@ void ExceptionHandler(ExceptionType which) {
           {
             char *filename = &(kernel->machine->mainMemory[val]);
             status = SysOpen(filename);
-            // cerr << "[ExceptionHandler()] status: " << status << "\n"; 
             kernel->machine->WriteRegister(2, (int)status);
           }
           kernel->machine->WriteRegister(PrevPCReg, kernel->machine->ReadRegister(PCReg));
