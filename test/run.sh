@@ -55,13 +55,13 @@ echo "================================="
 
 rm file*.txt
 
-# echo "[stderr from fileIO_test1]" 1>stderr.out
-# ../build.linux/nachos -e fileIO_test1 2>>stderr.out
+echo "[stderr from fileIO_test1]" 1>nachOS-prog-stderr.out
+../build.linux/nachos -e fileIO_test1 2>>nachOS-prog-stderr.out
 
-# echo "[stderr from fileIO_test2]" 1>>stderr.out
-# ../build.linux/nachos -e fileIO_test2 2>>stderr.out
+echo "[stderr from fileIO_test2]" 1>>nachOS-prog-stderr.out
+../build.linux/nachos -e fileIO_test2 2>>nachOS-prog-stderr.out
 
-../build.linux/nachos -e tb 2>nachOS-prog-stderr.out
+# ../build.linux/nachos -e tb 2>nachOS-prog-stderr.out
 
 echo "================================="
 echo "=       Print stderr out        ="
